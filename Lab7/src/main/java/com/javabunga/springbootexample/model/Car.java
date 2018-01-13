@@ -1,5 +1,7 @@
 package com.javabunga.springbootexample.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,7 +17,8 @@ public class Car {
     private String model;
     private String subModel;
     private int price;
-    private Date year;
+    @DateTimeFormat(pattern="yyyy-mm-dd")
+    private Date date;
 
     public final int getId() {
         return id;
@@ -50,11 +53,15 @@ public class Car {
         this.price = value;
     }
 
-    public final Date getYear() {
-        return new Date(year.getTime());
+    public final Date getDate() {
+        if (date == null) {
+            return null;
+        }
+
+        return new Date(date.getTime());
     }
 
-    public final void setYear(Date value) {
-        this.year = new Date(value.getTime());
+    public final void setDate(Date value) {
+        this.date = new Date(value.getTime());
     }
 }

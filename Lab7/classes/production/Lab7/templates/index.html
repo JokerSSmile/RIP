@@ -1,0 +1,80 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Cars</title>
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" />
+    </head>
+
+    <body>
+        <div class="container col-sm-3 mt-5">
+            <form th:action="@{/}" th:object="${car}" method="POST">
+                <div class="form-group row">
+                    <label for="model" class="col-sm-3 col-form-label">Model</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="model" th:field="*{model}" required=""/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="subModel" class="col-sm-3 col-form-label">Sub Model</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="subModel" th:field="*{subModel}" required=""/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="price" class="col-sm-3 col-form-label">Price</label>
+                    <div class="col-sm-9">
+                        <input type="number" class="form-control" id="price" th:field="*{price}" required=""/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="date" class="col-sm-3 col-form-label">Date</label>
+                    <div class="col-sm-9">
+                        <input type="date" class="form-control" id="date" th:field="*{date}" required=""/>
+                    </div>
+                </div>
+                <input class="btn btn-primary col-sm-12" type="submit" id="submitButton" value="Add" />
+            </form>
+
+            <br />
+
+            <p>
+                <button class="btn btn-primary col-sm-12" type="button" data-toggle="collapse" data-target="#collapse" aria-expanded="false" aria-controls="collapse">
+                    Show cars list
+                </button>
+            </p>
+            <div class="collapse" id="collapse">
+                <div class="card card-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Model</th>
+                                <th scope="col">SubModel</th>
+                                <th scope="col">Price</th>
+                                <th scope="col">Date</th>
+                            </tr>
+                        </thead>
+                        <th:block th:each="car : ${cars}">
+                            <tr>
+                                <td scope="row">
+                                    <p th:text="${car.model}"></p>
+                                </td>
+                                <td scope="row">
+                                    <p th:text="${car.subModel}"></p>
+                                </td>
+                                <td scope="row">
+                                    <p th:text="${car.price}"></p>
+                                </td>
+                                <td scope="row">
+                                    <p th:text="${#dates.format(car.date, 'yyyy MMM dd')}"></p>
+                                </td>
+                            </tr>
+                        </th:block>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
